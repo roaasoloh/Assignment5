@@ -94,4 +94,25 @@ class StudentController extends Controller
         return redirect()->route('index')->with('success', 'Student deleted successfully.');
 
     }
+public function filter(Request $request)
+{
+    $query = Student::query();
+
+    if ($request->name) {
+        $query->where('name', 'like', '%' . $request->name . '%');
+    }
+
+    if ($request->min_age) {
+        $query->where('age', '>=', $request->min_age);
+    }
+
+    if ($request->max_age) {
+        $query->where('age', '<=', $request->max_age);
+    }
+
+    $students = $query->get();
+    return view('students.filtered_rows', compact('students'));
+}
+
+
 }
