@@ -14,7 +14,7 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-6">Students List</h1>
         <a href="{{ route('students.create') }}" class="mb-4 inline-block px-4 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700">Add New Student</a>
 
-        <!-- Search and Filter Inputs -->
+        
         <div class="flex mb-6 space-x-4">
             <input type="text" id="searchName" placeholder="Search by name" class="p-2 border border-gray-300 rounded">
             <input type="number" id="minAge" placeholder="Min age" class="p-2 border border-gray-300 rounded">
@@ -22,7 +22,7 @@
             <button id="filterButton" class="px-4 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700">Filter</button>
         </div>
 
-        <!-- Student Table -->
+        
         <div class="overflow-x-auto bg-white shadow-md rounded-lg mt-6">
             <table class="min-w-full leading-normal">
                 <thead>
@@ -39,7 +39,6 @@
                     </tr>
                 </thead>
                 <tbody id="studentTable">
-                    <!-- Rows will be updated here via AJAX -->
                     @foreach ($students as $student)
                     <tr class="hover:bg-gray-50">
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -65,7 +64,7 @@
         </div>
     </div>
 
-    <!-- jQuery for AJAX -->
+  
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
