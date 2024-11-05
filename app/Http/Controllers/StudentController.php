@@ -17,6 +17,28 @@ class StudentController extends Controller
         return view('index', compact('students'));
     }
 
+    public function filter(Request $request)
+    {
+        $query = Student::query();
+
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->filled('minAge')) {
+            $query->where('age', '>=', $request->minAge);
+        }
+
+        if ($request->filled('maxAge')) {
+            $query->where('age', '<=', $request->maxAge);
+        }
+
+        $students = $query->get();
+
+        return view('studentsearch', compact('students'))->render();
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -40,8 +62,7 @@ class StudentController extends Controller
             'name' => $request->name,
             'age' => $request->age
         ]);
-        return redirect()->route('index')->with('success','Student added successfully');
-        
+        return redirect()->route('index')->with('success', 'Student added successfully');
     }
 
     /**
@@ -79,8 +100,7 @@ class StudentController extends Controller
             'name' => $request->name,
             'age' => $request->age
         ]);
-        return redirect()->route('index')->with('success','Student Updated successfully');
-
+        return redirect()->route('index')->with('success', 'Student Updated successfully');
     }
 
     /**
@@ -92,6 +112,5 @@ class StudentController extends Controller
         $student = Student::findOrFail($id);
         $student->delete();
         return redirect()->route('index')->with('success', 'Student deleted successfully.');
-
     }
 }
