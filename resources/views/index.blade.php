@@ -50,7 +50,6 @@
             });
         }
 
-        // Trigger search on keyup for search input and change for age filters
         $('#search, #min_age, #max_age').on('input', function () {
             fetchStudents();
         });

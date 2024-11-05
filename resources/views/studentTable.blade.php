@@ -11,12 +11,10 @@
             <tr>
                 <td class="py-2 px-4 border-b">{{ $student->name }}</td>
                 <td class="py-2 px-4 border-b">{{ $student->age }}</td>
-                <!-- In studentTable.blade.php -->
+                
                 <td class="py-2 px-4 border-b">
                     <a href="{{ route('students.show', $student->id) }}" class="text-blue-500 hover:underline">Show</a>
                     <a href="{{ route('students.edit', $student->id) }}" class="text-yellow-500 hover:underline mx-2">Edit</a>
-                    
-                    <!-- Delete Form with Confirmation Prompt -->
                     <form action="{{ route('students.destroy', $student->id) }}" method="POST" class="inline" onsubmit="return confirmDelete()">
                         @csrf
                         @method('DELETE')
