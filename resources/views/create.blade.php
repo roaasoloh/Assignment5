@@ -1,17 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Add new student</h1>
-    <form action="{{route('students.store')}}" method="POST">
+@extends('layout')
+
+@section('title', 'Add New Student')
+
+@section('content')
+    <h1 class="my-4">Add New Student</h1>
+    <form action="{{ route('students.store') }}" method="POST" class="border p-4 rounded">
         @csrf
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="number" name="age" placeholder="Age" required>
-        <button type="submit">Add new Student</button>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="form-control" placeholder="Name" required>
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" name="age" class="form-control" placeholder="Age" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add New Student</button>
     </form>
-</body>
-</html>
+@endsection
