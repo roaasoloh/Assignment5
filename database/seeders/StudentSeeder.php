@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    
     public function index(Request $request)
     {
         $query = Student::query();
@@ -21,10 +20,10 @@ class StudentController extends Controller
         }
 
         $students = $query->paginate(10);
+
         return view('students.index', compact('students'));
     }
 
- 
     public function create()
     {
         return view('students.create');
@@ -34,7 +33,7 @@ class StudentController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:50',
-            'age' => 'required|integer|min:1'
+            'age' => 'required|integer|min:1',
         ]);
 
         Student::create([
@@ -45,26 +44,23 @@ class StudentController extends Controller
         return redirect()->route('students.index')->with('success', 'Student added successfully');
     }
 
-  
     public function show(string $id)
     {
         $student = Student::findOrFail($id);
         return view('students.show', compact('student'));
     }
 
-  
     public function edit(string $id)
     {
         $student = Student::findOrFail($id);
         return view('students.edit', compact('student'));
     }
 
-   
     public function update(Request $request, string $id)
     {
         $request->validate([
             'name' => 'required|string|max:50',
-            'age' => 'required|integer|min:1'
+            'age' => 'required|integer|min:1',
         ]);
 
         $student = Student::findOrFail($id);
@@ -76,7 +72,6 @@ class StudentController extends Controller
         return redirect()->route('students.index')->with('success', 'Student updated successfully');
     }
 
-    
     public function destroy(string $id)
     {
         $student = Student::findOrFail($id);

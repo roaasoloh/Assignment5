@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    //
-    protected $fillable = ['name','age'];
+    use HasFactory;
 
+    protected $fillable = ['name', 'age'];  // Make sure these fields can be mass-assigned
 }
