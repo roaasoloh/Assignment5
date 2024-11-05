@@ -16,12 +16,12 @@
                 <input type="number" name="age" placeholder="Age" required
                     class="w-full p-2 border border-gray-300 rounded" />
             </div>
-            <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Add New
+            <button type="submit" class="w-full bg-brown-600 text-white p-2 rounded hover:bg-brown-400">Add New
                 Student</button>
         </form>
 
         <!-- Back Link to Student List -->
-        <a href="{{ route('students.index') }}" class="mt-4 inline-block text-blue-500 hover:underline">Back to Student
+        <a href="{{ route('students.index') }}" class="mt-4 inline-block text-brown-700 hover:underline">Back to Student
             List</a>
     </div>
 @endsection
