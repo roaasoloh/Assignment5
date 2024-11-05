@@ -40,7 +40,7 @@ class StudentController extends Controller
             'name' => $request->name,
             'age' => $request->age
         ]);
-        return redirect()->route('index')->with('success','Student added successfully');
+        return redirect()->route('students.index');
         
     }
 
@@ -64,9 +64,7 @@ class StudentController extends Controller
         return view('edit', compact("student"));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, string $id)
     {
         //
@@ -79,7 +77,7 @@ class StudentController extends Controller
             'name' => $request->name,
             'age' => $request->age
         ]);
-        return redirect()->route('index')->with('success','Student Updated successfully');
+        return redirect()->route('index');
 
     }
 
@@ -91,7 +89,7 @@ class StudentController extends Controller
         //
         $student = Student::findOrFail($id);
         $student->delete();
-        return redirect()->route('index')->with('success', 'Student deleted successfully.');
+        return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
 
     }
 }
