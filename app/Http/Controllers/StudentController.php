@@ -10,19 +10,33 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         $students = Student::all();
         return view('index', compact('students'));
     }
-
+    public function search(Request $request)
+    {
+        $query = Student::query();
+    
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+    
+        if ($request->filled('min_age') && $request->filled('max_age')) {
+            $query->whereBetween('age', [$request->min_age, $request->max_age]);
+        }
+    
+        $students = $query->get();
+        return view('student_rows', compact('students'));
+    }
+    
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
         return view('create');
     }
 
@@ -31,17 +45,17 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $request->validate([
             'name' => 'required|string|max:50',
             'age' => 'required|integer|min:1'
         ]);
+
         Student::create([
             'name' => $request->name,
             'age' => $request->age
         ]);
-        return redirect()->route('index')->with('success','Student added successfully');
-        
+
+        return redirect()->route('index')->with('success', 'Student added successfully');
     }
 
     /**
@@ -49,9 +63,8 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        //
         $student = Student::findOrFail($id);
-        return view('show', compact("student"));
+        return view('=show', compact("student"));
     }
 
     /**
@@ -59,7 +72,6 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        //
         $student = Student::findOrFail($id);
         return view('edit', compact("student"));
     }
@@ -69,18 +81,18 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
         $request->validate([
             'name' => 'required|string|max:50',
             'age' => 'required|integer|min:1'
         ]);
+
         $student = Student::findOrFail($id);
         $student->update([
             'name' => $request->name,
             'age' => $request->age
         ]);
-        return redirect()->route('index')->with('success','Student Updated successfully');
 
+        return redirect()->route('index')->with('success', 'Student updated successfully');
     }
 
     /**
@@ -88,10 +100,9 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
         $student = Student::findOrFail($id);
         $student->delete();
-        return redirect()->route('index')->with('success', 'Student deleted successfully.');
 
+        return redirect()->route('index')->with('success', 'Student deleted successfully');
     }
 }
