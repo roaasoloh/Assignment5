@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Add new student</h1>
-    <form action="{{route('store')}}" method="POST">
+    <form action="{{route('students.store')}}" method="POST">
         @csrf
         <input type="text" name="name" placeholder="Name" required>
         <input type="number" name="age" placeholder="Age" required>

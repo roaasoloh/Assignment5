@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-<form action="{{route('update',$student->id)}}" method="POST">
+<form action="{{route('students.update',$student->id)}}" method="POST">
         @csrf
         @method('PUT')
         <input type="text" name="name" value="{{$student->name}}" required>

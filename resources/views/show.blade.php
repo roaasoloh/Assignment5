@@ -8,6 +8,6 @@
 <body>
     <h1>{{$student->name}} </h1>
     <p>Age: {{$student->age}} </p>
-    <a href="{{route('index')}}">Back to student List</a>
+    <a href="{{route('students.index')}}">Back to student List</a>
 </body>
 </html>
