@@ -4,8 +4,14 @@ This assignment focuses on enhancing a Laravel project with styling, layout impr
 
 ## Requirements
 
-### 1. Clone and Set Up the Project
-- Clone this repository and set up the project locally.
+### 1. Fork the Repository
+- Navigate to the following GitHub repository: https://github.com/roaasoloh/Assignment5.git.
+- Click on the “Fork” button to create a personal copy of the repository in your GitHub account.
+- Work on Your Fork
+    - Open your forked version of the repository in GitHub.
+    - Make changes directly in this online repository according to the instructions provided.
+    - Clone the Project Locally
+
 
 ### 2. Styling Enhancements
 - Apply Tailwind CSS or Bootstrap for consistent styling.
