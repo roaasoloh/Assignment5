@@ -40,7 +40,7 @@ class StudentController extends Controller
             'name' => $request->name,
             'age' => $request->age
         ]);
-        return redirect()->route('index')->with('success','Student added successfully');
+        return redirect()->route('students.index')->with('success','Student added successfully');
         
     }
 
@@ -79,7 +79,7 @@ class StudentController extends Controller
             'name' => $request->name,
             'age' => $request->age
         ]);
-        return redirect()->route('index')->with('success','Student Updated successfully');
+        return redirect()->route('students.index')->with('success','Student Updated successfully');
 
     }
 
@@ -91,7 +91,26 @@ class StudentController extends Controller
         //
         $student = Student::findOrFail($id);
         $student->delete();
-        return redirect()->route('index')->with('success', 'Student deleted successfully.');
+        return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
 
+    }
+    public function search(Request $request)
+    {
+        $query = Student::query();
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('min_age')) {
+            $query->where('age', '>=', $request->min_age);
+        }
+
+        if ($request->filled('max_age')) {
+            $query->where('age', '<=', $request->max_age);
+        }
+
+        $students = $query->get();
+        return view('studentTable', compact('students'))->render();
     }
 }
