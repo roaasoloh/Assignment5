@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<form action="{{route('students.update',$student->id)}}" method="POST">
+@extends('layout')
+
+@section('title', 'Edit Student Details')
+
+@section('content')
+    <h1 class="my-4">Edit Student Details</h1>
+    <form action="{{ route('students.update', $student->id) }}" method="POST" class="border p-4 rounded">
         @csrf
         @method('PUT')
-        <input type="text" name="name" value="{{$student->name}}" required>
-        <input type="number" name="age" value="{{$student->age}}" required>
-        <button type="submit">Update</button>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="form-control" value="{{ $student->name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" name="age" class="form-control" value="{{ $student->age }}" required>
+        </div>
+        <button type="submit" class="btn btn-success">Update</button>
     </form>
-</body>
-</html>
+@endsection

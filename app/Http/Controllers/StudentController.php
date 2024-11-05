@@ -10,10 +10,15 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+     
+    public function index(Request $request)
     {
         //
         $students = Student::all();
+        if ($request->ajax()) {
+            return response()->json($students);
+        }
         return view('index', compact('students'));
     }
 
@@ -94,4 +99,6 @@ class StudentController extends Controller
         return redirect()->route('index')->with('success', 'Student deleted successfully.');
 
     }
+
+    
 }
