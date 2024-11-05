@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>{{$student->name}} </h1>
-    <p>Age: {{$student->age}} </p>
-    <a href="{{route('students.index')}}">Back to student List</a>
-</body>
-</html>
+@extends('layout')
+
+@section('title', 'Student Details')
+
+@section('header', $student->name)
+
+@section('content')
+    <div class="bg-white p-6 rounded shadow-md max-w-md mx-auto">
+        <h2 class="text-2xl font-bold mb-4">{{ $student->name }}</h2>
+        <p class="text-gray-700 mb-4">Age: {{ $student->age }}</p>
+        <a href="{{ route('students.index') }}" class="inline-block bg-brown-600 text-white py-2 px-4 rounded hover:bg-brown-400">Back to Student List</a>
+    </div>
+@endsection

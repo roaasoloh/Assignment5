@@ -40,8 +40,8 @@ class StudentController extends Controller
             'name' => $request->name,
             'age' => $request->age
         ]);
-        return redirect()->route('index')->with('success','Student added successfully');
-        
+        return redirect()->route('index')->with('success', 'Student added successfully');
+
     }
 
     /**
@@ -79,7 +79,7 @@ class StudentController extends Controller
             'name' => $request->name,
             'age' => $request->age
         ]);
-        return redirect()->route('index')->with('success','Student Updated successfully');
+        return redirect()->route('students.index')->with('success', 'Student Updated successfully');
 
     }
 
@@ -91,7 +91,24 @@ class StudentController extends Controller
         //
         $student = Student::findOrFail($id);
         $student->delete();
-        return redirect()->route('index')->with('success', 'Student deleted successfully.');
+        return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
 
+    }
+    //adding filter and search function
+    public function filter(Request $request)
+    {
+        $query = Student::query();
+        // name search filter
+        if ($request->has('name') && $request->name != '') {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        //age search filter
+        if ($request->has('age') && $request->age != '') {
+            $query->where('age', $request->age);
+        }
+
+        $students = $query->get();
+
+        return view('SearchFilter', compact('students'));
     }
 }
