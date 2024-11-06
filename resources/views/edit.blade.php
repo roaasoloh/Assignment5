@@ -19,7 +19,8 @@
                     <label for="age" class="form-label">Age</label>
                     <input type="number" class="form-control" id="age" name="age" value="{{ $student->age }}" required>
                 </div>
-                <button type="submit" class="btn btn-success">Update Student</button>
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="{{ route('students.index') }}" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>
