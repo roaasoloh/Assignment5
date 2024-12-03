@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class StudentController extends Controller
 {
     /**
@@ -25,7 +25,38 @@ class StudentController extends Controller
         //
         return view('create');
     }
+    public function showLoginForm(){
+        return view('login');
+    }
+public function login(Request $request){
+      // Validate the request data
+      $request->validate([
+        'name' => 'required|string',
+    ]);
 
+    // Attempt to find the student by name
+    $student = Student::where('name', $request->name)->first();
+
+    if ($student) {
+        // Log in the student using Laravel's Auth
+        Auth::login($student);
+
+        // Redirect to the intended page or dashboard
+        return redirect()->intended('/graduate');
+    }
+
+    // Redirect back with an error message if login fails
+    return back()->withErrors(['name' => 'Student not found']);
+
+}
+public function logout()
+{
+    Auth::logout();
+    return redirect('/login');
+}
+public function graduate(){
+        return view('graduate');
+}
     /**
      * Store a newly created resource in storage.
      */
