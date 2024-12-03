@@ -94,4 +94,22 @@ class StudentController extends Controller
         return redirect()->route('index')->with('success', 'Student deleted successfully.');
 
     }
+
+    /* Added part for searching students and filtering by age */
+    public function search(Request $request)
+    {
+        $query = Student::query();
+
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->filled('min_age') && $request->filled('max_age')) {
+            $query->whereBetween('age', [$request->min_age, $request->max_age]);
+        }
+
+        $students = $query->get();
+
+        return view('students.partials.student_rows', compact('students'));
+    }
 }
