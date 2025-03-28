@@ -4,20 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+// Mahmoud Sidawi:20230159
 
 class StudentController extends Controller
 {
     // Display a list of students
     public function index()
     {
-        $students = Student::all(); // Later: add filtering logic
-        return view('index', compact('students'));
+        $students = Student::all();
+        return view('students.index', compact('students'));
     }
 
     // Show the form to create a new student
     public function create()
     {
-        return view('create');
+        return view('students.create');
     }
 
     // Store a newly created student
@@ -33,11 +34,36 @@ class StudentController extends Controller
             'age'  => $request->age,
         ]);
 
-        return redirect()->route('index')->with('success', 'Student added successfully!');
+        return redirect()->route('students.index')->with('success', 'Student added successfully!');
     }
 
-    public function show($id) {}
-    public function edit($id) {}
-    public function update(Request $request, $id) {}
-    public function destroy($id) {}
+    public function search(Request $request)
+    {
+        $query = $request->input('search');
+        $minAge = $request->input('min_age');
+        $maxAge = $request->input('max_age');
+    
+        $students = Student::query();
+    
+        if ($query) {
+            $students->where('name', 'like', '%' . $query . '%');
+        }
+    
+        if ($minAge) {
+            $students->where('age', '>=', $minAge);
+        }
+    
+        if ($maxAge) {
+            $students->where('age', '<=', $maxAge);
+        }
+    
+        // Fetch students from the database
+        $students = $students->get();
+        if ($request->ajax()) {
+            return view('students.student_table', compact('students'))->render();
+        }
+    
+ 
+        return view('students.index', compact('students'));
+    }
 }

@@ -4,10 +4,12 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/students">Students</a>
+        <a class="nav-link" href="{{ route('students.index') }}">Students</a>
+
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/add-student">Add Student</a>
+        <a class="nav-link" href="{{ route('students.create') }}">Add Student</a>
+
         </li>
       </ul>
     </div>
