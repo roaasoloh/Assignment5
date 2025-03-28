@@ -1,5 +1,5 @@
 <?php
-
+// MohammadFarran-20230053
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -7,12 +7,50 @@ use App\Models\Student;
 
 class StudentController extends Controller
 {
-    // Display a list of students
-    public function index()
-    {
-        $students = Student::all(); // Later: add filtering logic
-        return view('index', compact('students'));
+ 
+    public function index(Request $request)
+    {   
+        if ($request->ajax()) {
+            $query = Student::query();
+    
+           
+            if ($request->filled('search')) {
+                $query->where('name', 'LIKE', '%' . $request->search . '%');
+            }
+    
+          
+            if ($request->filled('min_age') && is_numeric($request->min_age)) {
+                $query->where('age', '>=', (int)$request->min_age);
+            }
+    
+       
+            if ($request->filled('max_age') && is_numeric($request->max_age)) {
+                $query->where('age', '<=', (int)$request->max_age);
+            }
+    
+            $students = $query->get();
+    
+        
+            $output = '';
+            if ($students->count() > 0) {
+                foreach ($students as $student) {
+                    $output .= '
+                    <tr>
+                        <td>' . $student->id . '</td>
+                        <td>' . $student->name . '</td>
+                        <td>' . $student->age . '</td>
+                    </tr>';
+                }
+            } else {
+                $output = '<tr><td colspan="3">No students found</td></tr>';
+            }
+    
+            return response()->json($output);
+        }
+    
+        return view('index');
     }
+    
 
     // Show the form to create a new student
     public function create()
